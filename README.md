@@ -151,7 +151,15 @@ Note that the first run will be slow since the repository generates and saves th
 
 ========= DEPENDENCIES =========
 
-TODO
+This is the list of already tested packages' versions to succesfully run the scripts stored in this repo.
+```
+imageio=2.27.0
+pyeda=0.28.0
+scipy=1.9.1
+seaborn=0.12.1
+pytorch=1.14.0a0+44dac51
+scikit-image=0.20.0
+```
 
 ========= REPOSITORY REFERENCES =========
 
