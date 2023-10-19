@@ -37,9 +37,6 @@ absl.flags.DEFINE_string(
     "whether to use pretrained weights. Values [imagenet, places365, None]",
 )
 absl.flags.DEFINE_string("device", "cuda", "device to use to store the model")
-absl.flags.DEFINE_string(
-    "heuristic", "mmesh", "heuristic to use. Values:[mmesh, None]"
-)
 absl.flags.DEFINE_integer("num_clusters", 5, "number of clusters")
 absl.flags.DEFINE_integer("random_units", 0, "number of units")
 absl.flags.DEFINE_string(

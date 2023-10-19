@@ -42,9 +42,6 @@ absl.flags.DEFINE_string(
     "whether to use pretrained weights. Values [imagenet, places365, None]",
 )
 absl.flags.DEFINE_string("device", "cuda", "device to use to store the model")
-absl.flags.DEFINE_string(
-    "heuristic", "mmesh", "heuristic to use. Values:[mmesh, None]"
-)
 absl.flags.DEFINE_integer("length", 3, "length of explanations")
 absl.flags.DEFINE_integer("random_units", 50, "number of units")
 absl.flags.DEFINE_string(
@@ -231,12 +228,9 @@ def main(argv):
             None,
             None,
         )
-    if FLAGS.heuristic == "mmesh":
-        masks_info = (concept_areas, (inscribed_rectangles, bounding_boxes))
-    elif FLAGS.heuristic == "cfh" or FLAGS.heuristic == "areas":
-        masks_info = concept_areas
-    else:
-        masks_info = None
+
+    masks_info = (concept_areas, (inscribed_rectangles, bounding_boxes))
+
 
     # Loop over all the selected layers
     for _, layer_name in enumerate(cfg.get_feature_names()):
@@ -307,7 +301,7 @@ def main(argv):
                         masks,
                         bitmaps,
                         segmentations_info=masks_info,
-                        heuristic=FLAGS.heuristic,
+                        heuristic="mmesh",
                         length=FLAGS.length,
                         max_size_mask=cfg.get_max_mask_size(),
                         mask_shape=cfg.get_mask_shape(),

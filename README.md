@@ -35,12 +35,11 @@ All the scripts assume that you have downloaded the Broden dataset. You can use 
 
 It is the main script to run the Clustered Compositional Explanations algorithm. Most of the scripts require to run this script before calling them.
 ```
-run_clustering.py --subset=ade20k --model=resnet18 --pretrained=places365 --heuristic=mmesh --length=3 --beam_limit=5 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
+run_clustering.py --subset=ade20k --model=resnet18 --pretrained=places365 --length=3 --beam_limit=5 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
 where: 
 - *subset*: the concept dataset used to extract the semantic for each neuron. Admissible values are:[ade20k, pascal]
 - *model*: the model to probe. Supported models are: [resnet18, vgg16, alexnet, densenet161]
-- *heuristic*: heuristic to use in the beam search. Admissible values are [mmesh, areas, cfh, none]
 - *pretrained*: the weights used to inizialize the model. Admissible values are:[place365, imagenet, none]
 - *length*: Explanations' length and length of the beam search. Length=1 corresponds to NetDissect. Length=3 corresponds to Compositional Explanations and Clustered Compositional Explanations
 - *num_clusters* : number of clusters to use to clusters each neuron's activation map. num_clusters=1 corresponds to NetDissect and Compositional Explanations and only the highest activations will be considered. num_clusters=5 corresponds to the results reported in Clustered Compositional Explanations paper.
@@ -62,11 +61,14 @@ It prints the timing and the visited states of the selected heuristics (mmesh, c
 ```
 compare_heuristics.py --heuristic=<HEURISTIC> --subset=ade20k --model=resnet18 --pretrained=places365  --length=3 --beam_limit=5 --num_clusters=1 --device=device --random_units=100 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
+where:
+- *heuristic*: heuristic to use in the beam search. Admissible values are [mmesh, areas, cfh, none]
+
 **compare_thresholds.py**
 
 It compares explanations when the quantile is set to one of the following values [0.005, 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.9, 0.95, 0.99, 0.995]. The description of the parameters is the same of the ones of the `run_clustering.py` script.
 ```
-compare_thresholds.py --subset=ade20k --model=resnet18 --pretrained=places365 --heuristic=mmesh --length=3 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
+compare_thresholds.py --subset=ade20k --model=resnet18 --pretrained=places365 --length=3 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
 
 **compute_metrics.py**
@@ -74,7 +76,7 @@ compare_thresholds.py --subset=ade20k --model=resnet18 --pretrained=places365 --
 It calculates and prints metrics for the explanations returned by the `run_clustering.py` script. It requires to run the `run_clustering.py` script using the same parameters before running this script.
 
 ```
-compute_metrics.py --subset=ade20k --model=resnet18 --pretrained=places365 --heuristic=mmesh --length=3 --beam_limit=5 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
+compute_metrics.py --subset=ade20k --model=resnet18 --pretrained=places365 --length=3 --beam_limit=5 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
 
 
@@ -91,7 +93,7 @@ compute_ranges_importance.py --subset=ade20k --model=resnet18 --pretrained=place
 This script can be used to analyze the type of activations inside each cluster (unspecialized and weakly specialized).
 This script requires to run both `run_clustering.py --length=3 <REST_OF_PARAMETERS>` and  `run_clustering.py --pretrained=none --length=3 <REST_OF_PARAMETERS>` using the same parameters this script.
 ```
-analyze_activations.py --subset=ade20k --model=resnet18 --pretrained=places365 --heuristic=mmesh --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
+analyze_activations.py --subset=ade20k --model=resnet18 --pretrained=places365 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
 
 **generate_images.py** 
