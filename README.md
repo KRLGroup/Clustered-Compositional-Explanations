@@ -2,7 +2,7 @@ Official repository of the paper "Towards a fuller understanding of neurons with
 
 The repository contains the PyTorch code to replicate paper results and a guide to use Clustered Compositional Explanations in your own projects.
 
-========= HEURISTIC =========
+# ========= HEURISTIC =========
 
 To use the MMESH heuristic to estimate the IOU import it and use provide the following arguments 
 ```
@@ -19,7 +19,7 @@ where:
             - *unary_bounding_box*: are the coordinates (top left and bottom right) of the bounding box around the concept's mask per sample
         - *neuron_areas* is a vector containing the number of hits in the neuron's bitmap per sample
         - *unary_intersection* is a vector of size num_concepts containing the number of hits per sample in the masks obtained by the AND of the neuron's bitmap and the atomic concepts' mask 
-    - *enneary_info* isa tuple containing the information collected for each formula in the current beam during the parsing of the previous beam. 
+    - *enneary_info* is a tuple containing the information collected for each formula in the current beam during the parsing of the previous beam. 
         - enneary_areas:  is the size of the formula's mask per sample.
         - enneary_inscribed: are the coordinates (top left and bottom right) of the rectangles inscribed in the formula's mask per sample
         - enneary_bounding_box: are the coordinates (top left and bottom right) of the bounding box around the formula's mask per sample
@@ -27,9 +27,9 @@ where:
 - *num_hits*: is the number of 1s in the neuron's bitmap
 - *MAX_SIZE_MASK*: is the size of the mask including both 0 and 1 (i.e., number of cells)
 
-========= SCRIPTS =========
+# ========= SCRIPTS =========
 
-All the scripts assume that you have downloaded the Broden dataset. You can use the script `dlbroden.sh` to do it. There are additional parameters that can be changed (like the layers to consider for each model) in the `constants.py` and `settings.py` files.
+All the scripts are stored in the scripts directory and assume that you have downloaded the Broden dataset. You can use the script `dlbroden.sh` to do it. There are additional parameters that can be changed (like the layers to consider for each model) in the `constants.py` and `settings.py` files.
 
 **run_clustering.py** 
 
@@ -107,7 +107,7 @@ generate_images.py --subset=ade20k  --model=resnet18 --pretrained=places365 --le
 where 
 - *top_k* specify how many images should be printed for each cluster.
 
-========= SET UP THE REPO =========
+# ========= SET UP THE REPO =========
 1) Install docker 
 
 2) Pull the nvidia docker image pytorch:23.01-py3
@@ -151,7 +151,7 @@ RUN pip install pyparsing==2.4.2
 
 Note that the first run will be slow since the repository generates and saves the sparse representations of the segmentation masks and computes and stores all the heuristic information for atomic concepts. Once that all these items are generated, the successive runs will be a lot faster.
 
-========= DEPENDENCIES =========
+# ========= DEPENDENCIES =========
 
 This is the list of already tested packages' versions to succesfully run the scripts stored in this repo.
 ```
@@ -163,7 +163,7 @@ pytorch=1.14.0a0+44dac51
 scikit-image=0.20.0
 ```
 
-========= REPOSITORY REFERENCES =========
+# ========= REPOSITORY REFERENCES =========
 
 Here there is the list of repository and links used as a reference for the current repo
 
