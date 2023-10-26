@@ -112,44 +112,22 @@ where
 
 2) Pull the nvidia docker image pytorch:23.01-py3
 
-3) Download the modified version of cocoapi from https://github.com/jayelm/cocoapi and save it in the workspace
+3) Clone this repository
 
-4) Use the following dockerfile from the workspace to create a docker satisfying all the dependencies
+4) Download the modified version of cocoapi from https://github.com/jayelm/cocoapi and save it in the "docker" folder inside the downloaded repository
+
+5) Build the dockerfile from the docker directory 
 ```
-# start from the nvidia docker image
-FROM nvcr.io/nvidia/pytorch:23.01-py3
-
-USER root
-ARG UID=1000
-ARG GID=1000
-ARG DEBIAN_FRONTEND=noninteractive
-
-# Remove pycocotools and install the modified version
-RUN pip uninstall pycocotools -y
-RUN mkdir /code
-WORKDIR /code
-ADD ./cocoapi /code
-WORKDIR /code/PythonAPI
-RUN python setup.py build_ext --inplace
-RUN python setup.py build_ext install
-WORKDIR /
-RUN rm -r /code
-WORKDIR /workspace
-
-# install the remaining dependencies
-RUN pip install pyeda seaborn imageio scikit-image
-RUN pip uninstall pyparsing -y
-RUN pip install pyparsing==2.4.2
+docker -t <NAME_IMAGE>:<VERSION> .
 ```
-5) Run the created image
 
-6) Clone this repository
+6) Run the created image
 
 7) Move to the repository 
 
 8) Run `dowload_models.sh` and `dlbroden.sh`
 
-9) Install the module `pip install -e .`
+9) Install the package `pip install -e .`
 
 10) Run your scripts
 
