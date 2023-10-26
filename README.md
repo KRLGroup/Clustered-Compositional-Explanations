@@ -29,9 +29,9 @@ where:
 
 ## ========= SCRIPTS =========
 
-All the scripts are stored in the scripts directory and assume that you have downloaded the Broden dataset. You can use the script `dlbroden.sh` to do it. There are additional parameters that can be changed (like the layers to consider for each model) in the `constants.py` and `settings.py` files.
+All the scripts are stored in the `scripts/` directory, assume that you have [downloaded the Broden](#download_broden) dataset, and assume you have [installed the package](#install_package) (needed). You can use the script `dlbroden.sh` to do it. Run them from the parent directory. There are additional parameters that can be changed (like the layers to consider for each model) in the `constants.py` and `settings.py` files.
 
-**run_clustering.py** 
+**python3 scripts/run_clustering.py** 
 
 It is the main script to run the Clustered Compositional Explanations algorithm. Most of the scripts require to run this script before calling them.
 ```
@@ -53,7 +53,7 @@ where:
 - *root_results*: Directory where to store/load the results
 - *seed*: seed used to fix the randomness
 
-**compare_heuristics.py**
+**python3 scripts/compare_heuristics.py**
 
 It prints the timing and the visited states of the selected heuristics (mmesh, cfh, none ). The description of the parameters is the same of the ones of the `run_clustering.py` script.
 
@@ -64,14 +64,14 @@ compare_heuristics.py --heuristic=<HEURISTIC> --subset=ade20k --model=resnet18 -
 where:
 - *heuristic*: heuristic to use in the beam search. Admissible values are [mmesh, areas, cfh, none]
 
-**compare_thresholds.py**
+**python3 scripts/compare_thresholds.py**
 
 It compares explanations when the quantile is set to one of the following values [0.005, 0.01, 0.05, 0.1, 0.2, 0.5, 0.8, 0.9, 0.95, 0.99, 0.995]. The description of the parameters is the same of the ones of the `run_clustering.py` script.
 ```
 compare_thresholds.py --subset=ade20k --model=resnet18 --pretrained=places365 --length=3 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
 
-**compute_metrics.py**
+**python3 scripts/compute_metrics.py**
 
 It calculates and prints metrics for the explanations returned by the `run_clustering.py` script. It requires to run the `run_clustering.py` script using the same parameters before running this script.
 
@@ -80,7 +80,7 @@ compute_metrics.py --subset=ade20k --model=resnet18 --pretrained=places365 --len
 ```
 
 
-**compute_ranges_importance.py**
+**python3 scripts/compute_ranges_importance.py**
 
 It computes how many times the model changes its predictions when the activations associated with each cluster are masked.
 
@@ -88,7 +88,7 @@ It computes how many times the model changes its predictions when the activation
 compute_ranges_importance.py --subset=ade20k --model=resnet18 --pretrained=places365 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
 
-**analyze_activations.py** 
+**python3 scripts/analyze_activations.py** 
 
 This script can be used to analyze the type of activations inside each cluster (unspecialized and weakly specialized).
 This script requires to run both `run_clustering.py --length=3 <REST_OF_PARAMETERS>` and  `run_clustering.py --pretrained=none --length=3 <REST_OF_PARAMETERS>` using the same parameters this script.
@@ -96,7 +96,7 @@ This script requires to run both `run_clustering.py --length=3 <REST_OF_PARAMETE
 analyze_activations.py --subset=ade20k --model=resnet18 --pretrained=places365 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
 
-**generate_images.py** 
+**python3 scripts/generate_images.py** 
 
 This script can be used to generate a visual image of the clusters semantics for each neuron. Images are stored in the directory specified as a parameter using the following name `unit_{unit}_c_{num_clusters}.png`
 This script requires to run the `run_clustering.py` script using the same parameters before running this script. 
@@ -125,9 +125,9 @@ docker -t <NAME_IMAGE>:<VERSION> .
 
 7) Move to the repository 
 
-8) Run `dowload_models.sh` and `dlbroden.sh`
+8) <a name="download_broden"></a>Run `dowload_models.sh` and `dlbroden.sh`
 
-9) Install the package `pip install -e .`
+9) <a name="install_package"></a>Install the package `pip install -e .`
 
 10) Run your scripts
 
