@@ -209,8 +209,8 @@ scikit-image=0.20.0
 
 Here there is the list of repository and links used as a reference for the current repo
 
-Compositional Explanations: https://github.com/jayelm/compexp/blob/master/vision/
-Pytorch Randomness: https://pytorch.org/docs/stable/notes/randomness.html
-NetDissect Lite: https://github.com/CSAILVision/NetDissect-Lite
-Detection Accuracy: https://github.com/KRLGroup/detacc-compexp
+Compositional Explanations: https://github.com/jayelm/compexp/blob/master/vision/ <br>
+Pytorch Randomness: https://pytorch.org/docs/stable/notes/randomness.html <br>
+NetDissect Lite: https://github.com/CSAILVision/NetDissect-Lite <br>
+Detection Accuracy: https://github.com/KRLGroup/detacc-compexp <br>
 cocoapi: https://github.com/jayelm/cocoapi
