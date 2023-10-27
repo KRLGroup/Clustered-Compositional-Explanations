@@ -107,6 +107,66 @@ python3 scripts/generate_images.py --subset=ade20k  --model=resnet18 --pretraine
 where 
 - *top_k* specify how many images should be printed for each cluster.
 
+## ========= METRICS =========
+The metrics described in the paper are stored inside the file `src/metrics`.
+Example to use them:
+```
+bitmaps = ... # Binary mask for the current neuron
+label_mask = ... # Binary segmentation mask of the label associated with the neuron
+from src import heuristics
+iou = metrics.iou(bitmaps, label_mask)
+activation_coverage = metrics.activations_coverage(
+                    bitmaps, label_mask
+                )
+detection_accuracy = metrics.detection_accuracy(
+    bitmaps, label_mask
+)
+samples_coverage = metrics.samples_coverage(
+    bitmaps, label_mask
+)
+explanation_coverage = metrics.explanation_coverage(
+    bitmaps, label_mask)
+
+```
+
+Concept masking uses different arguments:
+```
+score = cosine_concept_masking_score(
+    activation_before_masking, activation_after_masking, activation_range)
+```
+where:
+- *activation_before_masking* are the activations of the neuron when fed with standard inputs
+- *activation_after_masking* are the activation collected by masking all but the label's masks in inputs
+- *activation_range* is the activation range considered
+
+In order to compute concept masking without computing and providing the `activation_after_masking` you can use the auxiliary function:
+```
+concept masking = metrics.get_concept_masking(
+                    unit=unit,
+                    activations=unit_activations,
+                    activation_range=activation_range,
+                    label_mask=label_mask,
+                    mask_shape=mask_shape,
+                    layer_name=layer_name,
+                    model=model,
+                    loader=segmentation_loader,
+                    input_size=image_size,
+                )
+```
+where:
+- *unit* is the index of the neuron
+- *unit_activations* are the activations of the considered neuron
+- *activation_range* is the activation range to consider to compute the concept masking
+- *label_mask* is the mask of the labels associated with the current activation range
+- *mask_shape* is the shape of a segmentation mask
+- *layer_name* is the name of the layer where the neuron is placed
+- *model* is the model where the neuron is placed
+- *loader* is the loader of the concept dataset
+- *input_size* is the size of the input (we assume squared input) 
+
+
+
+
 ## ========= SET UP THE REPO =========
 1) Install docker 
 
