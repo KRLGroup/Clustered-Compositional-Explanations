@@ -69,6 +69,11 @@ def activations_coverage(activations, segmentations):
         activations & segmentations
     ) / torch.count_nonzero(activations)
 
+def explanation_coverage(activations, segmentations):
+    return get_num_nonzerosamples(
+        activations & segmentations) / (
+            activations.sum(1) > 0).sum()
+    
 
 def detection_accuracy(activations, segmentations):
     """Compute the segmentations coverage for the given activations and
@@ -177,7 +182,7 @@ def cosine_concept_masking_score(
     ))
 
 
-def get_concept_masking(
+def get_concept_masking(*,
     activations,
     mask_shape,
     label_mask,

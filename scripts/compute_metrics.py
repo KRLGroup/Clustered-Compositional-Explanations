@@ -300,10 +300,8 @@ def main(argv):
                     bitmaps[(bitmaps & label_mask).sum(1) > 0]
                 )
                 avg_overlapping = metrics.avg_mask_size(bitmaps & label_mask)
-                explanation_coverage = (
-                    metrics.get_num_nonzerosamples(bitmaps & label_mask)
-                    / neuron_active
-                )
+                explanation_coverage = metrics.explanation_coverage(
+                    bitmaps, label_mask)
                 total_samples = (
                     total_samples | (bitmaps & label_mask).sum(1) > 0
                 )
