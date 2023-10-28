@@ -1,10 +1,10 @@
-Official repository of the paper "**Towards a fuller understanding of neurons with Clustered Compositional Explanations**. *Biagio La Rosa, Leilani Gilpin, and Roberto Capobianco. NeurIPS 2023*"
+Official repository of the paper "**Towards a fuller understanding of neurons with Clustered Compositional Explanations**. *Biagio La Rosa, Leilani Gilpin, and Roberto Capobianco.* NeurIPS 2023"
 
 The repository contains the PyTorch code to replicate paper results and a guide to use Clustered Compositional Explanations in your own projects.
 
 ## ========= HEURISTIC =========
 
-To use the MMESH heuristic to estimate the IOU import it and provide the following arguments 
+To use the MMESH heuristic to estimate the IoU score import the `heuristic` package and provide the following arguments to the function:
 ```
 import heuristics
 estimate_iou = heuristics.mmesh_heuristic(formula, heuristic_info, num_hits, MAX_SIZE_MASK)
@@ -109,7 +109,7 @@ where
 
 ## ========= METRICS =========
 The metrics described in the paper are stored inside the file `src/metrics`.
-Here we provide an example on how to use them:
+Here we provide an example of how to use them:
 ```
 bitmaps = ... # Binary mask for the current neuron
 label_mask = ... # Binary segmentation mask of the label associated with the neuron
