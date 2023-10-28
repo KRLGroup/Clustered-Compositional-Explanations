@@ -1,19 +1,19 @@
-Official repository of the paper "Towards a fuller understanding of neurons with Clustered Compositional Explanations. Biagio La Rosa, Leilani Gilpin, and Roberto Capobianco. NeurIPS 2023"
+Official repository of the paper "**Towards a fuller understanding of neurons with Clustered Compositional Explanations**. *Biagio La Rosa, Leilani Gilpin, and Roberto Capobianco. NeurIPS 2023*"
 
 The repository contains the PyTorch code to replicate paper results and a guide to use Clustered Compositional Explanations in your own projects.
 
 ## ========= HEURISTIC =========
 
-To use the MMESH heuristic to estimate the IOU import it and use provide the following arguments 
+To use the MMESH heuristic to estimate the IOU import it and provide the following arguments 
 ```
 import heuristics
 estimate_iou = heuristics.mmesh_heuristic(formula, heuristic_info, num_hits, MAX_SIZE_MASK)
 ```
 where:
-- *formula*: is the formula for which the iou must be estimated. It must be an istance of the formula.F classs
+- *formula*: is the formula for which the iou must be estimated. It must be an instance of the formula (F class)
 - *heuristic_info*: It is a nested tuple (dissect_info, enneary_info) where 
     - *dissect_info* info is a tuple containing information computed before and during the first beam. It is a nested tuple (unary_info, neuron_areas, unary_intersection) where
-        - *unary_info* is a tuple containing the information for each atomic concepts extracted from the concepts dataset
+        - *unary_info* is a tuple containing the information for each atomic concept extracted from the concepts dataset
             - *unary_areas*: is the size of the concept per sample
             - *unary_inscribed*: are the coordinates (top left and bottom right) of the rectangles inscribed in the concept's mask per sample
             - *unary_bounding_box*: are the coordinates (top left and bottom right) of the bounding box around the concept's mask per sample
@@ -33,17 +33,17 @@ All the scripts are stored in the `scripts/` directory, assume that you have [do
 
 **python3 scripts/run_clustering.py** 
 
-It is the main script to run the Clustered Compositional Explanations algorithm. Most of the scripts require to run this script before calling them.
+It is the main script to run the Clustered Compositional Explanations algorithm. Most of the scripts require running this script before calling them.
 ```
 python3 scripts/run_clustering.py --subset=ade20k --model=resnet18 --pretrained=places365 --length=3 --beam_limit=5 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
 where: 
-- *subset*: the concept dataset used to extract the semantic for each neuron. Admissible values are:[ade20k, pascal]
+- *subset*: the concept dataset used to extract the semantics for each neuron. Admissible values are:[ade20k, pascal]
 - *model*: the model to probe. Supported models are: [resnet18, vgg16, alexnet, densenet161]
-- *pretrained*: the weights used to inizialize the model. Admissible values are:[place365, imagenet, none]
+- *pretrained*: the weights used to initialize the model. Admissible values are:[place365, imagenet, none]
 - *length*: Explanations' length and length of the beam search. Length=1 corresponds to NetDissect. Length=3 corresponds to Compositional Explanations and Clustered Compositional Explanations
-- *num_clusters* : number of clusters to use to clusters each neuron's activation map. num_clusters=1 corresponds to NetDissect and Compositional Explanations and only the highest activations will be considered. num_clusters=5 corresponds to the results reported in Clustered Compositional Explanations paper.
-- *beam_limit*: widenesss of the beam search. How many candidates to consider for each step. Note that the first step selects beam_limit*2 candidates among the unary concepts.
+- *num_clusters*: number of clusters to use to cluster each neuron's activation map. num_clusters=1 corresponds to NetDissect and Compositional Explanations and only the highest activations will be considered. num_clusters=5 corresponds to the results reported in the Clustered Compositional Explanations paper.
+- *beam_limit*: wideness of the beam search. How many candidates to consider for each step. Note that the first step selects beam_limit*2 candidates among the unary concepts.
 - *device*: device used to store the data. GPU is strongly recommended. Admissible values are:[cuda, cpu]
 - *random_units*: number of units for which to compute the explanations. Set random_units to 0 to run the algorithm for all the units.
 - *root_models*: Directory where to store/load the models
@@ -55,7 +55,7 @@ where:
 
 **python3 scripts/compare_heuristics.py**
 
-It prints the timing and the visited states of the selected heuristics (mmesh, cfh, none ). The description of the parameters is the same of the ones of the `run_clustering.py` script.
+It prints the timing and the visited states of the selected heuristics (mmesh, cfh, none ). The description of the parameters is the same as the ones of the `run_clustering.py` script.
 
 
 ```
@@ -73,7 +73,7 @@ python3 scripts/compare_thresholds.py --subset=ade20k --model=resnet18 --pretrai
 
 **python3 scripts/compute_metrics.py**
 
-It calculates and prints metrics for the explanations returned by the `run_clustering.py` script. It requires to run the `run_clustering.py` script using the same parameters before running this script.
+It calculates and prints metrics for the explanations returned by the `run_clustering.py` script. It requires running the `run_clustering.py` script using the same parameters before running this script.
 
 ```
 python3 scripts/compute_metrics.py --subset=ade20k --model=resnet18 --pretrained=places365 --length=3 --beam_limit=5 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
@@ -91,7 +91,7 @@ python3 scripts/compute_ranges_importance.py --subset=ade20k --model=resnet18 --
 **python3 scripts/analyze_activations.py** 
 
 This script can be used to analyze the type of activations inside each cluster (unspecialized and weakly specialized).
-This script requires to run both `run_clustering.py --length=3 <REST_OF_PARAMETERS>` and  `run_clustering.py --pretrained=none --length=3 <REST_OF_PARAMETERS>` using the same parameters this script.
+This script requires running both `run_clustering.py --length=3 <REST_OF_PARAMETERS>` and  `run_clustering.py --pretrained=none --length=3 <REST_OF_PARAMETERS>` using the same parameters this script.
 ```
 python3 scripts/analyze_activations.py --subset=ade20k --model=resnet18 --pretrained=places365 --num_clusters=5 --device=device --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
@@ -99,7 +99,7 @@ python3 scripts/analyze_activations.py --subset=ade20k --model=resnet18 --pretra
 **python3 scripts/generate_images.py** 
 
 This script can be used to generate a visual image of the clusters semantics for each neuron. Images are stored in the directory specified as a parameter using the following name `unit_{unit}_c_{num_clusters}.png`
-This script requires to run the `run_clustering.py` script using the same parameters before running this script. 
+This script requires running the `run_clustering.py` script using the same parameters before running this script. 
 ```
 python3 scripts/generate_images.py --subset=ade20k  --model=resnet18 --pretrained=places365 --length=3 --num_clusters=5 --device=device 
 --top_k=5 --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
@@ -109,7 +109,7 @@ where
 
 ## ========= METRICS =========
 The metrics described in the paper are stored inside the file `src/metrics`.
-Example to use them:
+Here we provide an example on how to use them:
 ```
 bitmaps = ... # Binary mask for the current neuron
 label_mask = ... # Binary segmentation mask of the label associated with the neuron
@@ -136,7 +136,7 @@ score = cosine_concept_masking_score(
 ```
 where:
 - *activation_before_masking* are the activations of the neuron when fed with standard inputs
-- *activation_after_masking* are the activation collected by masking all but the label's masks in inputs
+- *activation_after_masking* are the activations collected by masking all but the label's masks in inputs
 - *activation_range* is the activation range considered
 
 In order to compute concept masking without computing and providing the `activation_after_masking` you can use the auxiliary function:
@@ -156,7 +156,7 @@ concept masking = metrics.get_concept_masking(
 where:
 - *unit* is the index of the neuron
 - *unit_activations* are the activations of the considered neuron
-- *activation_range* is the activation range to consider to compute the concept masking
+- *activation_range* is the activation range to consider to compute the label masking score
 - *label_mask* is the mask of the labels associated with the current activation range
 - *mask_shape* is the shape of a segmentation mask
 - *layer_name* is the name of the layer where the neuron is placed
@@ -195,7 +195,7 @@ Note that the first run will be slow since the repository generates and saves th
 
 ## ========= DEPENDENCIES =========
 
-This is the list of already tested packages' versions to succesfully run the scripts stored in this repo.
+This is the list of already tested packages' versions to successfully run the scripts stored in this repo.
 ```
 imageio=2.27.0
 pyeda=0.28.0
@@ -207,7 +207,7 @@ scikit-image=0.20.0
 
 ## ========= REPOSITORY REFERENCES =========
 
-Here there is the list of repository and links used as a reference for the current repo
+Here is the list of repositories and links used as a reference for the current repo
 
 Compositional Explanations: https://github.com/jayelm/compexp/blob/master/vision/ <br>
 Pytorch Randomness: https://pytorch.org/docs/stable/notes/randomness.html <br>
