@@ -1,4 +1,4 @@
-Official repository of the paper "**Towards a fuller understanding of neurons with Clustered Compositional Explanations**. *Biagio La Rosa, Leilani Gilpin, and Roberto Capobianco.* NeurIPS 2023"
+Official repository of the paper "**Towards a fuller understanding of neurons with Clustered Compositional Explanations**. *Biagio La Rosa, Leilani Gilpin, and Roberto Capobianco.* NeurIPS 2023" (<a href="https://arxiv.org/abs/2310.18443">LINK</a>)
 
 The repository contains the PyTorch code to replicate paper results and a guide to use Clustered Compositional Explanations in your own projects.
 
@@ -214,3 +214,20 @@ Pytorch Randomness: https://pytorch.org/docs/stable/notes/randomness.html <br>
 NetDissect Lite: https://github.com/CSAILVision/NetDissect-Lite <br>
 Detection Accuracy: https://github.com/KRLGroup/detacc-compexp <br>
 cocoapi: https://github.com/jayelm/cocoapi
+
+## ========= Paper Links =========
+<a href="https://arxiv.org/abs/2310.18443">ArXiv Version</a>
+## ========= CITATION =========
+
+Please cite our paper using the following reference:
+```
+@inproceedings{LaRosa2023,<br>
+ author = {Biagio {La Rosa} and Leilani Gilpin and Roberto Capobianco},<br>
+ booktitle = {Advances in Neural Information Processing Systems},<br>
+ publisher = {Curran Associates, Inc.},<br>
+ title = {Towards a fuller understanding of neurons with Clustered Compositional Explanations},<br>
+ year = {2023}<br>
+}
+```
+
+
