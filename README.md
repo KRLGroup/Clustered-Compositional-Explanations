@@ -219,14 +219,14 @@ cocoapi: https://github.com/jayelm/cocoapi
 <a href="https://arxiv.org/abs/2310.18443">ArXiv Version</a>
 ## ========= CITATION =========
 
-Please cite our paper using the following reference:
+Please cite our paper using the following bitex:
 ```
-@inproceedings{LaRosa2023,<br>
- author = {Biagio {La Rosa} and Leilani Gilpin and Roberto Capobianco},<br>
- booktitle = {Advances in Neural Information Processing Systems},<br>
- publisher = {Curran Associates, Inc.},<br>
- title = {Towards a fuller understanding of neurons with Clustered Compositional Explanations},<br>
- year = {2023}<br>
+@inproceedings{LaRosa2023,
+ author = {Biagio {La Rosa} and Leilani Gilpin and Roberto Capobianco},
+ booktitle = {Advances in Neural Information Processing Systems},
+ publisher = {Curran Associates, Inc.},
+ title = {Towards a fuller understanding of neurons with Clustered Compositional Explanations},
+ year = {2023}
 }
 ```
 
