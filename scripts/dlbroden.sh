@@ -9,6 +9,7 @@ if [ ! -f data/dataset/broden1_224/index.csv ]
 then
 
 echo "Downloading broden1_224"
+mkdir -p data/dataset
 pushd data/dataset
 wget --progress=bar \
    http://netdissect.csail.mit.edu/data/broden1_224.zip \
