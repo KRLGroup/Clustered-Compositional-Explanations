@@ -143,7 +143,8 @@ def main(argv):
 
     # Load Masks
     masks = mask_utils.get_masks(
-        sparse_segmentation_directory, segmentation_loader, dataset.labels
+        sparse_segmentation_directory, segmentation_loader, dataset.labels,
+        cfg.device
     )
 
     # Loop over all the selected layers

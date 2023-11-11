@@ -35,7 +35,7 @@ def load_sparse_masks(concept_names, segmentations_directory):
     return masks_list
 
 
-def save_sparse_masks(segloader, concept_names, segmentations_directory):
+def save_sparse_masks(segloader, concept_names, segmentations_directory, device):
     """
     Saves the masks in a sparse format in the given directory.
     Args:
@@ -51,7 +51,7 @@ def save_sparse_masks(segloader, concept_names, segmentations_directory):
         masks = defaultdict(lambda: [])
         for _, (_, segmentations, _) in enumerate(segloader):
             num_categories_segmentations = segmentations.shape[1]
-
+            segmentations = segmentations.to(device)
             for concept_index in concepts:
                 concept_mask = torch.zeros(
                     (
@@ -60,13 +60,13 @@ def save_sparse_masks(segloader, concept_names, segmentations_directory):
                         segmentations.shape[3],
                     ),
                     dtype=bool,
-                )
+                ).to(device)
 
                 for index_segmentation in range(num_categories_segmentations):
                     concept_mask = concept_mask | (
                         segmentations[:, index_segmentation] == concept_index
                     )
-                masks[concept_index].append(concept_mask)
+                masks[concept_index].append(concept_mask.cpu())
         for concept_index in sorted(masks.keys()):
             if concept_index < len(concept_names):
                 # Prepare for scipy sparse matrix format
@@ -438,7 +438,7 @@ def get_formula_mask(f, masks, optional_masks=None):
         raise ValueError(f"Unknown formula type {type(f)}")
 
 
-def get_masks(masks_directory, dataloader, labels):
+def get_masks(masks_directory, dataloader, labels, device):
     """
     Returns the masks for the given dataloader and labels.
     Args:
@@ -453,7 +453,7 @@ def get_masks(masks_directory, dataloader, labels):
     # If some file is missing, generate again the sparse masks
     if len(os.listdir(masks_directory)) != len(labels):
         print("Generating and saving sparse masks")
-        save_sparse_masks(dataloader, labels, masks_directory)
+        save_sparse_masks(dataloader, labels, masks_directory, device)
     masks = load_sparse_masks(labels, masks_directory)
     for i in range(1, len(masks)):
         masks[i] = torch.from_numpy(masks[i].toarray())
