@@ -38,7 +38,6 @@ def load_model_from_settings(
         if not os.path.exists(config.get_model_root()):
             os.makedirs(config.get_model_root())
         raise FileNotFoundError(f"Model file not found: {model_file_path}")
-    print(pretrained)
     if pretrained == "places365":
         print(f"Loading model:{model_name}\n\tfrom {model_file_path}")
     elif pretrained == "imagenet":
@@ -228,7 +227,6 @@ def get_layer_activations(loader, model, layer, units, dir_activations):
     total_activations = [[None] for _ in range(max(units) + 1)]
     for unit in units:
         if not os.path.exists(f"{layer_dir}/{unit}.npy"):
-            print(f"{layer_dir}/{unit}.npy")
             units_to_compute.append(unit)
         else:
             saved_units.append(unit)
