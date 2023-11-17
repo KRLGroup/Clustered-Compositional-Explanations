@@ -159,11 +159,6 @@ def main(argv):
         os.makedirs(sparse_segmentation_directory)
 
     # If some file is missing, generate again the sparse masks
-    if len(os.listdir(sparse_segmentation_directory)) != len(dataset.labels):
-        print("Generating and saving sparse masks")
-        mask_utils.save_sparse_masks(
-            segmentation_loader, dataset.labels, sparse_segmentation_directory
-        )
     masks = mask_utils.get_masks(
         sparse_segmentation_directory, segmentation_loader, dataset.labels,
         cfg.device
@@ -193,7 +188,7 @@ def main(argv):
         csv_file = (
             f"{cfg.get_results_directory()}/"
             + f"{layer_name}_{FLAGS.num_clusters}_{FLAGS.length}"
-            + "_metrics_debugged_cosine.csv"
+            + "_metrics.csv"
         )
 
         total_scores = defaultdict(list)
@@ -263,7 +258,6 @@ def main(argv):
                 )
                 bitmaps = bitmaps.to(device)
                 unit_activations = unit_activations.to(device)
-                neuron_active = (bitmaps.sum(1) > 0).sum()
                 try:
                     with open(file_algo_results, "rb") as file:
                         best_label, best_iou, visited = pickle.load(file)
