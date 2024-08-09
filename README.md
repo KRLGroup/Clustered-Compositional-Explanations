@@ -178,7 +178,7 @@ where:
 
 5) Build the dockerfile from the docker directory 
 ```
-docker -t <NAME_IMAGE>:<VERSION> .
+docker build -t <NAME_IMAGE>:<VERSION> .
 ```
 
 6) Run the created image
