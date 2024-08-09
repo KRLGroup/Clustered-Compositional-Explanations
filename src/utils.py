@@ -28,7 +28,7 @@ def set_seed(seed: int) -> RandomState:
     torch.use_deterministic_algorithms(True)
     torch.cuda.manual_seed(seed)
     random.seed(seed)
-    os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:2"
+    # os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:2"
     g = torch.Generator()
     g.manual_seed(0)
     return g
