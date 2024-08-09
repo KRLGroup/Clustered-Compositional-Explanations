@@ -1,4 +1,4 @@
-Official repository of the paper "**Towards a fuller understanding of neurons with Clustered Compositional Explanations**. *Biagio La Rosa, Leilani Gilpin, and Roberto Capobianco.* NeurIPS 2023" (<a href="https://arxiv.org/abs/2310.18443">LINK</a>)
+Official repository of the paper "**Towards a fuller understanding of neurons with Clustered Compositional Explanations**. *Biagio La Rosa, Leilani Gilpin, and Roberto Capobianco.* NeurIPS 2023" (<a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/debd0ae2083160397a22a4a8831c7230-Abstract-Conference.html">LINK</a>)
 
 The repository contains the PyTorch code to replicate paper results and a guide to use Clustered Compositional Explanations in your own projects.
 
