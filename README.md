@@ -122,6 +122,15 @@ python3 scripts/run_clustering.py --length=3 --beam_limit=5 --num_clusters=1  OT
 ```
 
 
+## ========= NETWORK DISSECTION EXPLANATIONS =========
+
+To compute classical network dissection explanations (without clustering) using our faster repo, simply set the number of cluster to 1 and the lenght of explanation to 1 in the run_clustering.py script. This setting replicates the setting of https://github.com/csailvision/netdissect-lite/.
+
+```
+python3 scripts/run_clustering.py --length=1 --num_clusters=1  OTHER PARAMETERS
+```
+
+
 ## ========= METRICS =========
 The metrics described in the paper are stored inside the file `src/metrics`.
 Here we provide an example of how to use them:
