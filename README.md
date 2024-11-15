@@ -1,7 +1,13 @@
 Official repository of the paper "**Towards a fuller understanding of neurons with Clustered Compositional Explanations**. *Biagio La Rosa, Leilani Gilpin, and Roberto Capobianco.* NeurIPS 2023" (<a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/debd0ae2083160397a22a4a8831c7230-Abstract-Conference.html">LINK</a>)
 
-The repository contains the PyTorch code to replicate paper results and a guide to use Clustered Compositional Explanations in your own projects.
+The repository contains the PyTorch code to replicate paper results, a guide to use Clustered Compositional Explanations in your own projects, and a guide to use the faster version of Compositional Explanations.
 
+## Clustered Compositional Explanations
+Clustered Compositional Explanations (CCE) are explanations that explain the **full spectrum** of neurons' activations. These explanations tell us which concepts a given neuron is able to recognize at which activation ranges. In other words, they provide a mapping between activation ranges and the recognized concepts. While previous approaches focus only on the highest activations, the proposed explanations are able to capture polysemantic behavior both inside a given activation range and across the full spectrum of activations.
+
+<img src="splash.png" alt="drawing" width="400"/>
+
+We provide an algorithm that computes clustered and vanilla compositional explanations by combining heuristic search and clustering algorithms. Below, you can find more details about this repository and the link to the full paper.
 ## ========= HEURISTIC =========
 
 To use the MMESH heuristic to estimate the IoU score import the `heuristic` package and provide the following arguments to the function:
@@ -106,6 +112,15 @@ python3 scripts/generate_images.py --subset=ade20k  --model=resnet18 --pretraine
 ```
 where 
 - *top_k* specify how many images should be printed for each cluster.
+
+## ========= FAST COMPOSITIONAL EXPLANATIONS =========
+
+To compute classical compositional explanations (without clustering) using our faster repo, simply set the number of cluster to 1 in the run_clustering.py script. This setting replicates the setting of https://github.com/jayelm/compexp/blob/master/vision/ but using PyTorch and our heuristic, resulting in a much faster implementation.
+
+```
+python3 scripts/run_clustering.py --length=3 --beam_limit=5 --num_clusters=1  OTHER PARAMETERS
+```
+
 
 ## ========= METRICS =========
 The metrics described in the paper are stored inside the file `src/metrics`.
@@ -216,7 +231,12 @@ Detection Accuracy: https://github.com/KRLGroup/detacc-compexp <br>
 cocoapi: https://github.com/jayelm/cocoapi
 
 ## ========= Paper Links =========
+
+<a href="https://proceedings.neurips.cc/paper_files/paper/2023/file/debd0ae2083160397a22a4a8831c7230-Paper-Conference.pdf">NeurIPS Version</a>
+
+
 <a href="https://arxiv.org/abs/2310.18443">ArXiv Version</a>
+
 ## ========= CITATION =========
 
 Please cite our paper using the following bibtex:
