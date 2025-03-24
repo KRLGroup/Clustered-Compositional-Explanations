@@ -2,6 +2,7 @@
 It is an adaptation of the code referenced in:
 https://github.com/jayelm/compexp/blob/master/vision/settings.py"""
 
+import torch
 
 class Settings:
     """
@@ -38,7 +39,29 @@ class Settings:
         self.__root_activations = root_activations
         self.__root_results = root_results
         self.__root_models = root_models
-        self.device = device
+        self.set_device(device)
+
+    def set_device(self, device):
+        """
+        Sets the device to be used.
+        """
+        if "cuda" in device:
+            if torch.cuda.is_available():
+                self.device = torch.device(device)
+            else:
+                raise ValueError(
+                    f"Device {device} not available. "
+                    "Please use cpu or check your drivers."
+                )
+        elif "cpu" in device:
+            self.device = torch.device(device)
+        elif device is None:
+            self.device = torch.device("cpu")
+        else:
+            raise ValueError(
+                f"Device {device} not recognized. "
+                "Please use cuda or cpu."
+            )
 
     def get_image_mean(self):
         """
@@ -147,14 +170,7 @@ class Settings:
         """
         if self.model == "resnet18":
             return [
-                #  ['layer2', '0', 'conv1'], ['layer2', '0', 'conv2'],
-                #  ['layer2', '1', 'conv1'], ['layer2', '1', 'conv2'],
-                #  ['layer3', '0', 'conv1'], ['layer3', '0', 'conv2'],
-                #  ['layer3', '1', 'conv1'], ['layer3', '1', 'conv2'],
-                #  ['layer4', '0', 'conv1'], ['layer4', '0', 'conv2'],
-                # ["layer4", "1", "conv1"],
-                #  ["layer4", "1", "conv2"],
-                "layer4"
+               "layer4"
             ]
         elif self.model == "resnet50":
             return ["layer4"]

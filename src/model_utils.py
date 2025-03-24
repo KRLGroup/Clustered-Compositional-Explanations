@@ -4,6 +4,7 @@ activations of the model.
 import os
 from typing import List
 import requests
+from tqdm import tqdm
 
 import torch
 import torchvision
@@ -179,11 +180,11 @@ def compute_activations(
     handles = hook(model, hook_feature, layers)
 
     activations = [[] for _ in range(len(layers))]
-    for _, (images, _, concept_matrix) in enumerate(loader):
+    for images, _, concept_matrix in tqdm(loader, desc="Computing activations"):
         # Transformations
         images = images[concept_matrix.sum(1) > 0]
 
-        # Move to GPU
+        # Move to the device
         images = images.to(device)
 
         # Forward pass
@@ -196,6 +197,8 @@ def compute_activations(
         # Empty the temp list
         del temp_activations[:]
         temp_activations = []
+
+        del images
 
     for handle in handles:
         handle.remove()
@@ -234,7 +237,7 @@ def get_layer_activations(loader, model, layer, units, dir_activations):
                 np.load(f"{layer_dir}/{unit}.npy")
             )
     if len(units_to_compute) > 0:
-        print(f"Computing activations for units {units_to_compute}")
+        print(f"Computing activations for all the units in {layer}")
 
         activations = compute_activations(
             loader, model, [layer], units=units_to_compute
