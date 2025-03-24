@@ -192,6 +192,8 @@ where:
 
 
 ## ========= SET UP THE REPO =========
+
+### Option 1 (Docker) - Our setup!
 1) Install docker 
 
 2) Pull the nvidia docker image pytorch:23.01-py3
@@ -214,6 +216,35 @@ docker build -t <NAME_IMAGE>:<VERSION> .
 9) <a name="install_package"></a>Install the package `pip install -e .`
 
 10) Run your scripts
+
+Note that the first run will be slow since the repository generates and saves the sparse representations of the segmentation masks and computes and stores all the heuristic information for atomic concepts. Once that all these items are generated, the successive runs will be a lot faster.
+
+### Option 2 (Conda)
+1) Install Conda 
+
+2) Create a conda environment including python=3.8 
+```
+conda create -n cce python=3.8
+```
+
+Install pytorch
+3) If you have an NVIDIA-gpu
+```
+```
+If you do not have a gpu
+```
+conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 cpuonly -c pytorch
+```
+
+4) Install dependencies
+```
+pip install tqdm pyeda seaborn imageio scikit-image absl-py scikit-learn pyparsing==2.4.2
+```
+5) <a name="download_broden"></a>Run `dowload_models.sh` and `dlbroden.sh`
+
+6) <a name="install_package"></a>Install the package `pip install -e .`
+
+7) Run your scripts
 
 Note that the first run will be slow since the repository generates and saves the sparse representations of the segmentation masks and computes and stores all the heuristic information for atomic concepts. Once that all these items are generated, the successive runs will be a lot faster.
 
