@@ -438,7 +438,7 @@ def get_formula_mask(f, masks, optional_masks=None):
         raise ValueError(f"Unknown formula type {type(f)}")
 
 
-def get_masks(masks_directory, dataloader, labels, device):
+def get_masks(masks_directory, dataloader, labels, device, pre_load=False):
     """
     Returns the masks for the given dataloader and labels.
     Args:
@@ -455,6 +455,9 @@ def get_masks(masks_directory, dataloader, labels, device):
         print("Generating and saving sparse masks")
         save_sparse_masks(dataloader, labels, masks_directory, device)
     masks = load_sparse_masks(labels, masks_directory)
-    for i in range(1, len(masks)):
-        masks[i] = torch.from_numpy(masks[i].toarray())
+
+    # Pre-load the masks in memory. RAM-intensive but slightly faster
+    if pre_load:
+        for i in range(1, len(masks)):
+            masks[i] = torch.from_numpy(masks[i].toarray())
     return masks

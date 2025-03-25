@@ -36,6 +36,11 @@ absl.flags.DEFINE_string(
     "whether to use pretrained weights. Values [imagenet, places365, None]",
 )
 absl.flags.DEFINE_string("device", "cuda", "device to use to store the model")
+absl.flags.DEFINE_boolean(
+    "pre_load_masks",
+    False,
+    "whether to pre-load the masks in the memory or not",
+)
 
 absl.flags.DEFINE_integer("length", 3, "length of explanations")
 absl.flags.DEFINE_integer("num_clusters", 5, "number of clusters")
@@ -117,7 +122,7 @@ def main(argv):
     # Load Masks
     masks = mask_utils.get_masks(
         sparse_segmentation_directory, segmentation_loader, dataset.labels,
-        cfg.device
+        cfg.device, pre_load=FLAGS.pre_load_masks
     )
 
     # Get Masks Information from the concept dataset

@@ -41,7 +41,7 @@ All the scripts are stored in the `scripts/` directory, assume that you have [do
 
 It is the main script to run the Clustered Compositional Explanations algorithm. Most of the scripts require running this script before calling them.
 ```
-python3 scripts/run_clustering.py --subset=ade20k --model=resnet18 --pretrained=places365 --length=3 --beam_limit=5 --num_clusters=5 --device=<DEVICE> --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
+python3 scripts/run_clustering.py --subset=ade20k --model=resnet18 --pretrained=places365 --length=3 --beam_limit=5 --num_clusters=5 --device=<DEVICE>  --pre_load_masks=False --random_units=0 --root_models=data/model/ --root_datasets=data/dataset/ --root_segmentations=data/cache/segmentations/ --root_activations=data/cache/activations/ --root_results=data/results/ --seed=0
 ```
 where: 
 - *subset*: the concept dataset used to extract the semantics for each neuron. Admissible values are:[ade20k, pascal]
@@ -51,6 +51,7 @@ where:
 - *num_clusters*: number of clusters to use to cluster each neuron's activation map. num_clusters=1 corresponds to NetDissect and Compositional Explanations and only the highest activations will be considered. num_clusters=5 corresponds to the results reported in the Clustered Compositional Explanations paper.
 - *beam_limit*: wideness of the beam search. How many candidates to consider for each step. Note that the first step selects beam_limit*2 candidates among the unary concepts.
 - *device*: device used to store the data. GPU is strongly recommended. Admissible values are:[cuda, cpu]
+- *pre_load_masks*: whether to pre-load the masks in the memory or not (faster but RAM-intensive)
 - *random_units*: number of units for which to compute the explanations. Set random_units to 0 to run the algorithm for all the units.
 - *root_models*: Directory where to store/load the models
 - *root_datasets*: Directory from where to load the dataset
@@ -58,6 +59,8 @@ where:
 - *root_activations*: Directory where to store/load the units' activations
 - *root_results*: Directory where to store/load the results
 - *seed*: seed used to fix the randomness
+
+If your workstation is equipped with a sufficient amount of RAM (> 40GB) you can try to speed up the script by setting the `pre_load_masks` flag to `True`.
 
 **scripts/compare_heuristics.py**
 
