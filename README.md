@@ -34,6 +34,7 @@ where:
 - *MAX_SIZE_MASK*: is the size of the mask including both 0 and 1 (i.e., number of cells)
 
 ## ========= SCRIPTS =========
+**Note: These scripts require a workstation with at least 16GB of RAM**
 
 All the scripts are stored in the `scripts/` directory, assume that you have [downloaded the Broden](#download_broden) dataset, and assume you have [installed the package](#install_package) (needed). You can use the script `dlbroden.sh` to do it. Run them from the parent directory. There are additional parameters that can be changed (like the layers to consider for each model) in the `constants.py` and `settings.py` files.
 
