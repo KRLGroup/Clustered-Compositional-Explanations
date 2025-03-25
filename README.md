@@ -197,7 +197,7 @@ where:
 ## ========= SET UP THE REPO =========
 
 ### Option 1 (Docker) - Our setup!
-1) Install docker 
+1) <a href="https://www.docker.com/get-started/">Install docker</a>
 
 2) Pull the nvidia docker image pytorch:23.01-py3
 
@@ -223,25 +223,30 @@ docker build -t <NAME_IMAGE>:<VERSION> .
 Note that the first run will be slow since the repository generates and saves the sparse representations of the segmentation masks and computes and stores all the heuristic information for atomic concepts. Once that all these items are generated, the successive runs will be a lot faster.
 
 ### Option 2 (Conda)
-1) Install Conda 
+1) <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html">Install Conda </a>
 
 2) Create a conda environment including python=3.8 
 ```
 conda create -n cce python=3.8
 ```
 
-Install pytorch
-3) If you have an NVIDIA-gpu
+3) Activate the cce conda environment
 ```
+conda activate cce
 ```
-If you do not have a gpu
+3) Install pytorch <br>
+If you have an NVIDIA-gpu you can use the following command:
+```
+conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia
+```
+If you do not have a gpu you can use the following command:
 ```
 conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 cpuonly -c pytorch
 ```
 
 4) Install dependencies
 ```
-pip install tqdm pyeda seaborn imageio scikit-image absl-py scikit-learn pyparsing==2.4.2
+pip install tqdm pyeda seaborn imageio scikit-image absl-py scikit-learn pyparsing==2.4.2 mkl==2024.0
 ```
 5) <a name="download_broden"></a>Run `dowload_models.sh` and `dlbroden.sh`
 
